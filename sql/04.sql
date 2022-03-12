@@ -15,3 +15,19 @@
  * NOTE:
  * You do not have to include movies with similarity score 0 in your results (but you may if you like).
  */
+SELECT film.title, COUNT(DISTINCT c.customer_id) as ss
+FROM film 
+JOIN inventory USING (film_id)
+JOIN rental USING (inventory_id)
+JOIN customer USING (customer_id)
+WHERE customer.customer_id IN 
+	(
+	select distinct customer_id
+	from customer
+	JOIN rental USING (customer_id)
+	JOIN inventory USING (inventory_id)
+	JOIN film USING (film_id)
+	WHERE title = 'AMERICAN CIRCUS'
+	)
+GROUP BY film.title
+ORDER BY ss DESC;

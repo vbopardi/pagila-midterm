@@ -1,4 +1,6 @@
 results/*
+pat/*
+
 
 *.swo
 *.swp

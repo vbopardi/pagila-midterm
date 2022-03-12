@@ -10,3 +10,15 @@
  * NOTE:
  * Your results should not contain any duplicate titles.
  */
+
+SELECT film.title
+FROM actor
+JOIN film_actor USING (actor_id)
+JOIN film USING (film_id)
+JOIN inventory USING (film_id)
+JOIN rental USING (inventory_id)
+JOIN customer USING (customer_id)
+WHERE film.title !~ 'F'
+AND actor.first_name || ' ' || actor.last_name !~ 'F'
+AND customer.first_name || ' ' || customer.last_name !~ 'F'
+GROUP BY film.title;
